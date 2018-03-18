@@ -1,5 +1,5 @@
 * {
-    margin:0;
+    margin:0; /*zewnętrzny margines*/
 
     padding:0;  /*wewnętrzny margines*/
     box-sizing: border-box;
@@ -12,11 +12,15 @@ html {
 header {
 
     height: 100vh;  /*całe okno przeglądarki*/
-
+    width: 100%;/*musieliśmy to wpisać bo fixed zmienił*/
     background-color: aqua;
-    position:relative;
-    overflow-x:hidden; <!-- jak sie przesunie w lewo
-                        to nie widzimy tego -->
+    position:fixed;
+    top: 0;
+    left: 0;
+    overflow-x:hidden; /*jak sie przesunie w lewo
+                        to nie widzimy tego*/
+    z-index:1;
+
 
 
 }
@@ -24,6 +28,11 @@ header {
 main {
     height: 100vh;
     background-color: grey;
+    margin-top:100vh;/*odsuwamy o szerokoś header*/
+    position:relative;
+    z-index:2; /*z-index nie dział przy domyślnym
+                ustawieniu positon wystarczy fixed*/
+
 }
 
 header img {
@@ -65,17 +74,45 @@ header h3 {
 }
 
 #arrow {
-    width: 48px;
-    height: 48px;
-    border: 4px solid black;
+    width:  64px;
+    height: 64px;
+    border: 3px solid black;
     position:absolute;
     bottom: 0.5%;
-    left: 37%;
+    left:   37%;
     /*transform:translateX(-50%); jesli lef:50% to bedzie na srodku*/
     border-radius:50%;
     font-size:3rem;
-    text-align: center;
+    text-align: center ;
+    text-shadow: 0px +15px 0 black, 0px +30px 0 black;
+    /*przesunięcie lewo prawo 0px,nastęmpnie
+    góra dół cień nad to '-', cień pod to '+'
+    nstępnie rozmycie '0' na końcu kolor
+     jesli nie chcemy aby znaki wychodziły poza to
+      overflow: hidden*/
+    overflow: hidden;
+    /*poniżej animacja za pomocą transiton*/
+    transition: 1s ease;
+
 }
+/*sudclass hover mówi jak ma sie zachować element gdy
+na niego najedziemy, kliniemy*/
+
+#arrow:hover {
+    color: red; /*gówny element*/
+    text-shadow: 0px +15px 0 red, 0px +30px 0 red;
+    border-color: red;
+    background-color: grey;
+    /*shadow nazewnątrz
+    box-shadow: 0 0 5px 5px black;
+     */
+
+}
+/*wykonanie animacji keyframews*/
+.fa-chevron-down {
+    animation: arrow 1.6s infinite linear;
+}
+
 /* zapytanie o media landscape i portrait*/
 @media(orientation: portrait){
     h3 span::after{
@@ -90,7 +127,7 @@ header h3 {
         height: 65%;
     }
 }
-/*określamy rozdzielczość w media
+/*określamy rozdzielczość w media przekżywi napis
 @media (max-width: 320px) {
     header h3 {
         font-size:2,4rem;
@@ -98,3 +135,45 @@ header h3 {
     header hgroup {
     transform: rotate(-15deg);
 }*/
+
+/*OKREŚLAMY ANIMACJĘ ZA POMOCĄ KEYFRAMES*/
+
+
+
+@keyframes arrow{
+    0%   {
+    transform: translateY(-80px);
+    }
+    50%  {
+    transform: translateY(-0px);
+    }
+    100% {
+    transform: translateY(80px);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
